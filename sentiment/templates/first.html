@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Kişilik ve Duygu Değerlendirmesi</title>
+	{% load static %}
+	<link rel="shortcut icon" href="{% static 'sentiment/css/fav.png' %}" sizes="16x16"></link>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="author" content="Sabri Eray Özbek|Muhammed Erdinç" />
+  	<meta name="description" content="Duygu Analizi" />
+  	<meta name="keywords" content="Duygu, Duygu Analizi" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'sentiment/css/bootstrap.min.css' %}" type = "text/css"/>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'sentiment/css/first.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  	<!--<link rel="stylesheet" type="text/css" href="w3.css">-->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+</head>
+<body >
+<div class="sec1">
+	<h1>Hangi Analizi Yapmak İstersiniz?</h1>
+<div class="sec3">	
+	<div class="card " style="margin-right: 10vw;margin-left: 3vw">
+	{% load static %}
+          <a href="query"><img class="crdimg img-circle img-responsive" src="{% static "sentiment/img/query.png" %}">
+            <div class="middle">
+               <div class="imgcardtext">Duygu Analizini Aç</div>
+            </div>
+          <h2 >Duygu Analizi</h2></a>
+    </div>
+
+    <div class="card ">
+	{% load static %}
+          <a href="personquery"><img class="crdimg img-circle img-responsive"  src="{% static "sentiment/img/person.png" %}">
+            <div class="middle">
+               <div class="imgcardtext">Karakter Analizini Aç</div>
+            </div>
+          <h2 >Karakter Analizi</h2></a>s
+    </div>
+</div>
+</div>
+	
+</body>
+
+</html>

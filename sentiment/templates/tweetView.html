@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Twitter Duygu Değerlendirmesi</title>
+	{% load static %}
+	<link rel="shortcut icon" href="{% static 'sentiment/css/fav.png' %}" sizes="16x16"></link>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="author" content="Sabri Eray Özbek|Muhammed Erdinç" />
+  	<meta name="description" content="Duygu Analizi" />
+  	<meta name="keywords" content="Duygu, Duygu Analizi" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'sentiment/css/bootstrap.min.css' %}" type = "text/css"/>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'sentiment/css/tweetview.css' %}">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+      
+      google.charts.load('current', {'packages':['corechart']});
+
+      
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart2);
+
+      function drawChart() {
+
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Duygu');
+        data.addColumn('number', 'Ağırlık Oranı');
+        data.addRows([
+          ['Pozitif', {{posPer}}],
+          ['Negatif', {{negPer}}],
+          ['Nötr', {{neutPer}}]
+        ]);
+
+       
+        var mq = window.matchMedia( "(max-width: 760px)" );
+        if(mq.matches){
+        var options = {'title':'Duygu analizi için Daire Grafiği',
+                       'width':400,
+                       'height':300,
+                   'backgroundColor': 'transparent',
+						'is3D':true,
+					'titleTextStyle' :{
+							'color':'white',
+							'fontSize' : 18,
+							'bold':true,
+							'forcelFrame':true
+
+						}};
+                       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        
+                }
+        else
+        {
+          var options = {'title':'Duygu analizi için Daire Grafiği',
+                       'width':1000,
+                       'height':500,
+                   		'backgroundColor': 'transparent',
+						'is3D':true,
+						'titleTextStyle' :{
+							'color':'white',
+							'fontSize' : 30,
+							'bold':true,
+							'forcelFrame':true,
+							'marginRight':15
+
+						}
+					};
+                       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+       
+        }
+        // Instantiate and draw our chart, passing in some options.
+       chart.draw(data, options); 
+      }
+
+
+      function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+      ['Duygu', 'Ağırlık Oranı'],
+	    ['Pozitif',  {{ posPer }}],
+      ['Negatif',  {{negPer}}],
+      ['Nötr',  {{neutPer}}],
+      ]);
+
+   var options = {
+      title: 'Kişilik Nitelikleri'
+   };
+
+
+   var chart = new google.visualization.BarChart(document.getElementById('container2'));
+   chart.draw(data, options);
+      }
+
+
+    </script>
+    <h1>Sonuçlar</h1>
+<div class="tweet" id="tweets">
+<h1>Pozitif Twitler</h1>
+{% for tweets in posTweet %}
+    <h6>>>{{ tweets }}</h6>
+{% endfor %}
+<hr>
+<h1>Negatif Twitler</h1>
+
+{% for tweets in negTweet %}
+        <h6>>>{{ tweets }}</h6>
+{% endfor %}
+<hr>
+<h1>Nötr Twitler</h1>
+
+{% for tweets in neutTweet %}
+        <h6>>>{{ tweets }}</h6>
+{% endfor %}
+<hr>
+<center>
+     <div id="chart_div"></div>
+      <br>
+      <div id="container2"></div>
+    </center>
+
+     {% load static %}
+
+</div>
+</body>
+</html>

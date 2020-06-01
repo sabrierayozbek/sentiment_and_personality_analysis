@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Twitter Kişilik Değerlendirmesi</title>
+	{% load static %}
+	<link rel="shortcut icon" href="{% static 'sentiment/css/fav.png' %}" sizes="16x16"></link>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="author" content="Sabri Eray Özbek|Muhammed Erdinç" />
+  	<meta name="description" content="Karakter Analizi" />
+  	<meta name="keywords" content="Karakter, Karakter Analizi" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'personality/css/bootstrap.min.css' %}" type = "text/css"/>
+	{{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'personality/css/perview.css' %}">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});     
+   </script>
+
+	<script language="JavaScript">
+
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart2);
+
+
+
+
+
+function drawChart() {
+   
+   var data = google.visualization.arrayToDataTable([
+      ['Tweet Üzerinden Analiz', 'Puan Değerlendirmesi'],
+	  ['Uygunluk',  {{ agree }}],
+      ['Kötümserlik',  {{pessi}}],
+      ['Farklılık',  {{view}}],
+      ['Tarafsızlık',  {{neu}}],
+      ['Dil Bilgisine Önem', {{gram}}]
+      ]);
+
+   var options = {
+      title: 'Tweet Analizi'
+   };
+
+
+   var chart = new google.visualization.BarChart(document.getElementById('container'));
+   chart.draw(data, options);
+}
+
+function drawChart2() {
+    var data = google.visualization.arrayToDataTable([
+      ['Genel Kişilik Analizi (Big5)', 'Puan Değerlendirmesi'],
+	  ['Deneyime Açıklık',  {{ aciklik }}],
+      ['Sorumluluk',  {{sorumluluk}}],
+      ['Dışa Dönüklük',  {{disa_donukluk}}],
+      ['Uyumluluk',  {{uyumluluk}}],
+      ['Duygusal Denge',  {{duygusal_denge}}]
+      ]);
+
+   var options = {
+      title: 'Kişilik Nitelikleri'
+   };
+
+
+   var chart = new google.visualization.BarChart(document.getElementById('container2'));
+   chart.draw(data, options);
+}
+
+
+</script>
+</head>
+<body>
+<h1>@{{ user }} Kişilik Analizi</h1>
+<br>
+<hr>
+<br>
+<div class="image" ><img src="{{ img }}" alt="Profile Pic" style="width: 12vw;"></div>
+<h6>Kullanıcı İsmi:{{ name }}</h6>
+<h6>Takipçi Sayısı:{{ followers }}</h6>
+<h6>Takip Ettiği Kişi Sayısı: {{ following }}</h6>
+<h6>Twit Sayısı:{{ tweets }}</h6>
+<h6>{{public}}</h6>
+<center><div id="container" style="width: 650px; height: 750px; margin: 0 auto"></div></center>
+<br>
+<center><div id="container2" style="width: 650px; height: 750px; margin: 0 auto"></div></center>
+<h6>
+	Açıklamalar:
+</h6>
+<h6>
+	1.Uygunluk: Bu kategorinin puanı, kişinin kitlelerin görüşüne ne kadar katıldığını gösterir.
+</h6>
+<h6>
+	2.Kötümserlik: Bu kategorinin puanı, bir kişinin tweet'lerinde ne kadar kötümser olduğunu gösterir.
+</h6>
+<h6>
+	3.Farklılık: Bu kategorinin puanı, bir kişinin kitlelerden ne kadar farklı düşündüğünü gösterir.
+</h6>
+<h6>
+	4.Tarafsızlık: Bu kategorinin puanı, kitlelerin öne sürdükleri farklı görüşlere karşı fikirlerinin ne kadar tarafsız kaldığını gösterir.
+</h6>
+<h6>
+	5.Dil Bilgisine Önem: Bu kategorinin puanı, bir kişinin tweet atarken dil bilgisine ne kadar önem verdiğini gösterir.
+</h6>
+<hr>
+<h6>
+   1.Deneyime Açıklık: <p>Açıklık sanatı, duyguları, macerayı, sıradışı fikirleri, hayal gücünü, merakı ve çeşitli deneyimleri genel olarak takdir anlamına gelmektedir. Bu özellik, yaratıcı insanları gerçekçi ve basmakalıp (sıradan) insanlardan ayırmaktadır. Deneyime açık olan insanlar, entelektüel olarak meraklı, sanatı takdir eden ve estetiğe duyarlı kişilerdir. Kapalı insanlara kıyasla, daha yaratıcı ve arzularının daha fazla ayırdında olan insanlardır. Alışılmadık inançlara bağlı olmaya daha fazla meyillidirler.</p>
+
+   <p>Açıklıkta düşük puanlara sahip insanlar daha geleneksel, basmakalıp ilgilere sahip olmaya eğilimlidirler. Onlar, basit, doğrudan ve açık olanı; karmaşık, belirsiz ve incelikli olana tercih ederler. Sanatı ve bilimi şüpjeyle karşılayabilirler, bu çabaları anlaşılması zor, derin ve pratik kullanımdan uzak bulabilirler. Kapalı insanlar aşina oldukları şeyleri yeni yollara karşı tercih ederler. Değişime karşı tutucu ve dirençlidirler.</p>
+</h6>
+<hr>
+<h6>
+	<p>2.Sorumluluk: Sorumluluk öz-disiplin gösterme eğilimi, görev bilinciyle hareket etme ve başarı için azim gösterme demektir. Bu özellik, kendiliğinden gerçekleşene karşılık planlı hareketi tercih etmeyi gösterir. Dürtülerimizi yönlendirme, düzenleme ve kontrol etme eğilimimizi belli eder. Sorumluluk Başarıya İhtiyaç Duyma (İngilizce Need for Achievement olarak bilinen ve kısaltması NAch olan) etmenini içerir.<p>
+
+   <p>Yüksek sorumluluğun faydaları açıktır. Sorumluluk sahibi bireyler kasıtlı planlama yaparak ve bunda süreklilik göstererek yüksek başarı düzeyine ulaşırlar ve sorunlardan kaçarlar. Diğerleri tarafından güvenilir ve zeki olarak adlandırılırlar. Diğer taraftan, zorlayıcı mükemmeliyetçiler ve işkolikler olabilirler.</p>
+</h6>
+<hr>
+<h6>
+	<p>3.Dışa Dönüklük: Dışadönüklük, olumlu duygular, diğerlerinin teşvik ve ortaklıklarını arama eğilimi olarak tanımlanır. Bu özellik dış dünyayla açık bir etkileşim ile kendini gösterir. Dışadönükler insanlarla olmaktan eğlenirler, genellikle enerji dolu olarak tanımlanırlar. Heyecan olanaklarına karşılık "Evet!" ya da "Hadi gidelim!" diyebilecek olan; coşkulu, hareket-odaklı bireyler olma eğilimindedirler. Grup içinde, konuşmayı severler, kendilerini öne çıkarırlar ve ilgi çekerler.</p>
+
+   <p>İçedönükler laf kalabalığı, enerji ve dışadönüklerin eylem seviyesinden uzaktırlar. Sessiz, şatafatsız, ağır ve sosyal dünyayla daha az ilgili olma eğilimindedirler. Sosyal katılımlarının az olması utangaçlık veya bunalım olarak yorumlanmamalıdır. İçedönükler, sadece, dışadönüklerden daha az dürtüye ve daha fazla yalnız zamana ihtiyaç duyarlar.</p>
+   
+</h6>
+<hr>
+<h6>
+   <p>4.Uyumluluk: Uyumluluk başkalarına karşı kuşkulu ve zıt (antagonistik) olmaktan ziyade merhametli ve yardıma hazır olmaya eğilimli olmak olarak tanımlanır. Bu özellik, sosyal denge üzerine ilgiyi ve kaygıyı yansıtır. Uyumlu bireyler diğerleriyle kolay geçinir. Genel olarak saygılı, arkadaşça, cömert, yardımsever ve diğerlerinin istekleriyle uzlaşmaya hazır olarak görülürler. Uyumlu bireyler insan doğası hakkında iyimser bir görüşe sahiptirler. Onlar, insanların dürüst, saygın ve güvenilir olduğuna inanırlar.</p>
+   
+  <p> Uyumsuz bireyler kendi çıkarlarını diğerleriyle geçinmekten üstün tutarlar. Diğerlerinin iyi olmasıyla genellikle daha az ilgilidirler ve diğerlerine daha az yardım eli uzatırlar. Bazen diğerleri hakkındaki şüphecilikleri onların kuşkucu, dostça olmayan ve geçimsiz olmalarına neden olur.</p>
+</h6>
+<hr>
+<h6>
+	<p>5.Duygusal Denge: Duygusal denge öfke, endişe, bunalım gibi olumsuz duyguları yaşamaya eğilim olarak tanımlanır. Duygusal dengesizlik olarak da adlandırılır. Duygusal dengede yüksek puan alanlar duygusal olarak duyarlı ve strese eğilimlidirler. Olağan durumları tehdit edici ve ufak hayal kırıklıklarını umutsuzca zor olarak nitelemeye daha eğilimlidirler. Onların olumsuz duygusal tepkileri olağandışı şekilde uzun sürer, bu da genellikle kötü bir ruh halinde oldukları anlamına gelir. Duygusal dengedeki bu sorunlar bu bireylerin açık düşünmesini, kararlar vermesini ve streste etkili bir şekilde baş etmesini engelleyebilir.</p>
+
+  <p>Ölçeğin diğer tarafında, duygusal denge puanı az olan bireyler daha zor üzülür ve duygusal olarak daha az tepkilidirler. Sakin, duygusal olarak dengeli ve kalıcı olumsuz histen uzak olma eğilimi gösterirler. Olumsuz hislerden uzak olmaları, daha çok olumlu hisleri tecrübe edecekleri anlamına gelmez. Olumlu hislerin sıklığı, dışadönüklük boyutunun bir bileşenidir.</p>
+   
+</h6>
+<hr>
+	
+</body>
+</html>
