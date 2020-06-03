@@ -36,7 +36,7 @@ When you the as a user accesses interface, you can choose one of the sentiment a
 
 
 ```
-	 consumer_key = ''
+	 	consumer_key = ''
 		consumer_secret = ''
 		access_token = ''
 		access_token_secret = ''
