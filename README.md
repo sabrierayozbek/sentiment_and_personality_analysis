@@ -3,7 +3,7 @@
 
 
 # Sentiment And Personality Analysis For Twitter Users
- This software presents you to do sentiment and personality analysis for twitter users.
+ This web application you to do sentiment and personality analysis for twitter users.
 
 ## Introduction: 
 
